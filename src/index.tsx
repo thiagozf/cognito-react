@@ -16,8 +16,8 @@ Auth.configure({
       "openid",
       "aws.cognito.signin.user.admin"
     ],
-    redirectSignIn: window.location.href,
-    redirectSignOut: window.location.href,
+    redirectSignIn: `${window.location.origin}/`,
+    redirectSignOut: `${window.location.origin}/`,
     responseType: "code"
   }
 });

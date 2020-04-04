@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from "react";
 import Auth from "@aws-amplify/auth";
 import "./App.css";
+import { CognitoHostedUIIdentityProvider } from "@aws-amplify/auth/lib-esm/types";
 
 const UserProfile = ({ user }: any) => {
   return user ? <div>{JSON.stringify(user)}</div> : null;
@@ -64,6 +65,28 @@ const App = () => {
 
         <input type="submit" value="Submit" />
       </form>
+
+      <button
+        type="button"
+        onClick={() =>
+          Auth.federatedSignIn({
+            provider: CognitoHostedUIIdentityProvider.Cognito
+          })
+        }
+      >
+        Federated sign in
+      </button>
+
+      <button
+        type="button"
+        onClick={async () => {
+          const user = await Auth.currentAuthenticatedUser();
+          setUser(user);
+          setError(null);
+        }}
+      >
+        Print user info
+      </button>
 
       <Error error={error} />
       <UserProfile user={user} />
